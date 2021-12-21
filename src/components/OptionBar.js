@@ -3,44 +3,47 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import "../App.css";
-// import Progress from "./Progress"
+import Progress from "./Progress"
+
 function OptionBar() {
   let el = {
     minutes: 1,
     seconds: 0,
-    reset: 0,
   };
   const [Min, setMin] = useState(el.minutes);
   const [Sec, setSec] = useState(el.seconds);
+  const [progress, setProgress] = useState(0);
+  let interval = 0;
+  let remainingSeconds = 1;
+  function start() {
+    remainingSeconds = Min * 60 + Sec;
+    interval = setInterval(() => {
+      remainingSeconds--;
+      const minutes = Math.floor(remainingSeconds / 60);
+      const seconds = remainingSeconds % 60;
+      setMin(minutes);
+      setSec(seconds);
+      setProgress( (progress)=> {
 
+       
+        return progress+ 100/(el.minutes*60)
+      })
+      if (remainingSeconds === 0) {
+        setMin(el.minutes);
+        setSec(el.seconds);
+        setProgress(0)
+        clearInterval(interval);
+        start();
+      }
+    }, 1000);
+  }
   useEffect(() => {
-    let interval = 0;
-    let remainingSeconds = 1;
 
     start();
-    function start() {
-      remainingSeconds = Min * 60 + Sec;
-      interval = setInterval(() => {
-        remainingSeconds--;
-        const minutes = Math.floor(remainingSeconds / 60);
-        const seconds = remainingSeconds % 60;
-        setMin(minutes);
-        setSec(seconds);
+   
 
-        if (remainingSeconds === 0) {
-          setMin(el.minutes);
-          setSec(el.seconds);
-          clearInterval(interval);
-          start();
-        }
-      }, 1000);
-    }
-
-    function stop() {
-      interval = 0;
-    }
   }, []);
-
+ 
   return (
     <>
       <div className="flex justify-around ">
@@ -54,14 +57,13 @@ function OptionBar() {
           </button>
           <button className="m-4">
           LEFT|RIGHT
-
           </button>
           <button>
             <span className="material-icons text-xl m-4">arrow_forward</span>
           </button>
         </div>
         <div className="flex">
-          <div className="timer w-52">
+          <div className="timer w-full">
             <div class="timer__part timer__part--minutes">{Min}</div>
             <div class="timer__part">:</div>
             <div class="timer__part timer__part--seconds">{Sec}</div>
@@ -91,13 +93,8 @@ function OptionBar() {
           </div>
         </div>
       </div>
-
-      {/* <div className="progress-bar">
-        <div
-          className="filler"
-          style={{ width: `${el.minutes * 60 - (Min * 60 + Sec)}%` }}
-        />
-      </div> */}
+      {/* <Progress p={progress}  /> */}
+  
     </>
   );
 }
