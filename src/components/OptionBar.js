@@ -5,7 +5,7 @@ import { useEffect } from "react";
 import "../App.css";
 import Progress from "./Progress"
 
-function OptionBar() {
+function OptionBar({ nextClick, prevClick }) {
   let el = {
     minutes: 1,
     seconds: 0,
@@ -52,13 +52,13 @@ function OptionBar() {
           <p>$99999</p>
         </div>
         <div className="timer">
-          <button>
+          <button onClick={prevClick}>
             <span className="material-icons m-4">arrow_back</span>
           </button>
           <button className="m-4">
           LEFT|RIGHT
           </button>
-          <button>
+          <button onClick={nextClick}>
             <span className="material-icons text-xl m-4">arrow_forward</span>
           </button>
         </div>
