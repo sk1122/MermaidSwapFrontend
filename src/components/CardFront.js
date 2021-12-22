@@ -1,4 +1,6 @@
-const CardFront = () => {
+import Progress from "./Progress";
+const CardFront = ({progress}) => {
+  
   return (
     <div class="flex flex-col mt-24 mx-auto lg:mt-16 max-w-min bg-gray-200 rounded-3xl">
       <div className="flex justify-between p-1 items-center text-xs">
@@ -28,8 +30,9 @@ const CardFront = () => {
           #23456
         </div>
       </div>
-      <div className="h-1 bg-purple-700"></div>
-      
+      {/* <div className="h-1 bg-purple-700"></div> */}
+    {/* { console.log(progress)} */}
+      <Progress p={progress} />
         <div className="flex flex-col justify-center overflow-hidden p-2">
           {/* polygon  */}
           <div className="upper-svg relative mx-auto">
