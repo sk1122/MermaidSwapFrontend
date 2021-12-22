@@ -36,10 +36,14 @@ export default function CardList() {
 		slider.current.scrollLeft -= 280
 	};
 
+	useEffect(() => {
+		slider.current.scrollLeft += ((window.innerWidth / 2) - 150)
+	}, [])
+
 	return (
-		<div className="w-full">
+		<div>
 			<OptionBar nextClick={handleOnNextClick} prevClick={handleOnPrevClick} />
-			<div ref={slider} className="scroll-smooth w-full relative no-scrollbar flex justify-center items-center gap-5 overflow-x-scroll">
+			<div ref={slider} className="no-scrollbar flex gap-5 overflow-x-scroll">
 				<CardFront />
 				<CardFront />
 				<CardFront />
@@ -50,6 +54,7 @@ export default function CardList() {
 
 				<CardFront />
 				<CardFront />
+				<div></div>
 			</div>
 			<div onClick={handleOnPrevClick}>Prev</div>
 		</div>
