@@ -30,9 +30,10 @@ const CardFront = ({progress}) => {
           #23456
         </div>
       </div>
-      {/* <div className="h-1 bg-purple-700"></div> */}
+      <div className="h-1">
+        <Progress p={progress} />
+      </div>
     {/* { console.log(progress)} */}
-      <Progress p={progress} />
         <div className="flex flex-col justify-center overflow-hidden p-2">
           {/* polygon  */}
           <div className="upper-svg relative mx-auto">
